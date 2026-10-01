@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+
+namespace B2
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCalculate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                double basic = Convert.ToDouble(txtBasic.Text);
+                double da, hra, gross, pf, pt, net;
+                if (basic <= 20000)
+                {
+                    da = 0.40 * basic;
+                    hra = 0.10 * basic;
+                    pt = 100;
+                }
+                else
+                {
+                    da = 0.50 * basic;
+                    hra = 0.12 * basic;
+                    pt = 150;
+                }
+                gross = basic + da + hra;
+                pf = 0.12 * gross;
+                net = gross - pf - pt;
+
+                txtDa.Text = da.ToString("F2");
+                txtHra.Text = hra.ToString("F2");
+                txtGross.Text = gross.ToString("F2");
+                txtPf.Text = pf.ToString("F2");
+                txtPt.Text = pt.ToString("F2");
+                txtNet.Text = net.ToString("F2");
+            }
+            catch
+            {
+                MessageBox.Show("Please enter a valid input value.");
+            }
+        }
+    }
+}
