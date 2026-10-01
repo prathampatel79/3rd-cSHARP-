@@ -1,0 +1,132 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+
+namespace B3
+{
+    public partial class Form1 : Form
+    {
+        int totalAmount = 0;
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void btnOrder_Click(object sender, EventArgs e)
+        {
+            int price = 0;
+            string size = "";
+            string toppings = "";
+            if (rbSmall.Checked)
+            {
+                price += 100;
+                size = "Small";
+            }
+            else if (rbMedium.Checked)
+            {
+                price += 150;
+                size = "Medium";
+            }
+            else if (rbLarge.Checked)
+            {
+                price += 200;
+                size = "Large";
+            }
+            else
+            {
+                MessageBox.Show("Please select a pizza size before Ordering.","Validation Error",
+                  MessageBoxButtons .OK,MessageBoxIcon.Warning);
+                return;
+            }
+            if (chkCheese.Checked)
+            {
+                price += 30;
+                toppings += "Extra Cheese";
+            }
+            if (chkOlives.Checked)
+            {
+                price += 30;
+                toppings += "Olives";
+            }
+            if (chkOnion.Checked)
+            {
+                price += 20;
+                toppings += "Onions";
+            }
+            if (chkMushroom.Checked)
+            {
+                price += 30;
+                toppings += "Mushroom";
+            }
+            int qty = (int)numQuantity.Value;
+            if (qty <=0)
+            {
+                MessageBox.Show("Quantity must be atleast 1", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            int amount = price * qty;
+            totalAmount += amount;
+            lblOrder.Text="Your order:"+qty+""+size+"pizza(s) with toppings"+toppings;
+            lblTotal.Text = "Total Amount:INR" + totalAmount;
+        }
+
+        private void btnAnotherPizza_Click(object sender, EventArgs e)
+        {
+          foreach(RadioButton rb in grpSize.Controls)
+              rb.Checked=false;
+          foreach(CheckBox cb in grpToppings.Controls)
+              cb.Checked=false;
+          numQuantity.Value = 1;
+          pictureBox1.Image = null;
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            totalAmount = 0;
+            lblOrder.Text = "";
+            lblTotal.Text = "";
+            btnAnotherPizza_Click(sender, e);
+            numQuantity.Value = 0;
+        }
+        public void UpdatePizzaImage()
+        {
+            if (chkCheese.Checked)
+                pictureBox1.Image = Image.FromFile(@"Y:\pizza_image\cheese.jpg");
+            else if (chkOlives.Checked)
+                pictureBox1.Image = Image.FromFile(@"Y:\pizza_image\olives.jpg");
+            else if (chkOnion.Checked)
+                pictureBox1.Image = Image.FromFile(@"Y:\pizza_image\onions.jpg");
+            else if (chkMushroom.Checked)
+                pictureBox1.Image = Image.FromFile(@"Y:\pizza_image\mushroom.jpg");
+            else
+                pictureBox1.Image = null;
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+        }
+
+        private void chkCheese_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdatePizzaImage();
+        }
+
+        private void chkOlives_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdatePizzaImage();
+        }
+
+        private void chkOnion_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdatePizzaImage();
+        }
+
+        private void chkMushroom_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdatePizzaImage();
+        }
+
+    }
+}
