@@ -1,107 +1,51 @@
-A:
-SELECT EMPNO,NAME,DESIGNATION
-FROM EMPLOYEE
-WHERE NAME LIKE '%RAJ';
+using System;
+using System.Collections.Generic;
+using System.Text;
+namespace A1
 
-OUTPUT:
-     EMPNO NAME            DESIGNATION
----------- --------------- ---------------
-       107 SUMAN RAJ       CLERK
-       110 AKSHAY RAJ      MANAGER
-______________________________________________________________________________________________________
-												      |	
-______________________________________________________________________________________________________|
-B:
-SELECT*FROM EMPLOYEE
-WHERE GENDER='F'
-AND SALARY BETWEEN 20000 AND 40000
-AND DEPARTMENT IN('SELLS','IT');
+class Program{
+static void Main(string[ args)
 
-OUTPUT:
-     EMPNO NAME            DESIGNATION     DEPARTMENT      G     SALARY
----------- --------------- --------------- --------------- - ----------
-       103 VISHRUTH        ANALYST         IT              F      25000
-       110 AKSHAY RAJ      MANAGER         SELLS           F      35000
-______________________________________________________________________________________________________
-												      |
-______________________________________________________________________________________________________|
-C:
-SELECT DISTINCT DEPARTMENT,DESIGNATION
-FROM EMPLOYEE
-ORDER BY DEPARTMENT,DESIGNATION;
+Console.Write("Enter the number of strings:"); int num = Convert.Tolnt32(Console.ReadLine());
 
-OUTPUT:
-DEPARTMENT      DESIGNATION
---------------- ---------------
-ACCOUNTS        ACCOUNTANT
-ACCOUNTS        SUPERVISOR
-IT              ANALYST
-IT              MANAGER
-IT              SUPERVISOR
-SELLS           CLERK
-SELLS           MANAGER
-______________________________________________________________________________________________________
-												      |
-______________________________________________________________________________________________________|
-D:
-SELECT DEPARTMENT,
-SUM(SALARY) AS TOTAL_SALARY,
-AVG(SALARY) AS AVERAGE_SALARY,
-MAX(SALARY) AS MAXIMUM_SALARY,
-MIN(SALARY) AS MINIMUM_SALARY
-FROM EMPLOYEE
-GROUP BY DEPARTMENT									    
-HAVING SUM(SALARY)>30000;									      
+string[] str = new string[num];
 
-OUTPUT:												      		      
-DEPARTMENT      TOTAL_SALARY AVERAGE_SALARY MAXIMUM_SALARY MINIMUM_SALARY			      
---------------- ------------ -------------- ------------- --------------			      
-IT                    240000          60000         90000          25000			      
-ACCOUNTS              208000     69333.3333         80000          50000			      
-SELLS                 180000          60000         75000          35000			      
-______________________________________________________________________________________________________
-												      |										      
-______________________________________________________________________________________________________|
-E:
-SELECT DEPARTMENT,COUNT(*)
-AS NO_OF_EMPLOYEES
-FROM EMPLOYEE
-GROUP BY DEPARTMENT
-HAVING COUNT(*)>2;
+int[] vcount = new int[num];
 
-OUTPUT:
-DEPARTMENT      NO_OF_EMPLOYEES
---------------- ---------------
-IT                            4
-ACCOUNTS                      3
-SELLS                         3
+int max = 0;
 
+for (int i = 0; i < num; i++)
 
-CREATE TABLE EMPLOYEE
-(EMPNO NUMBER(3) PRIMARY KEY,NAME VARCHAR2(15),DESIGNATION VARCHAR2(15) NOT NULL,DEPARTMENT VARCHAR2(15) NOT NULL,
-GENDER CHAR(1) NOT NULL,SALARY NUMBER(10,2) NOT NULL,
-CHECK(GENDER IN('M','F')),
-CHECK(DEPARTMENT IN('SELLS','ACCOUNTS','IT')),
-CHECK((
-DEPARTMENT='SELLS' AND DESIGNATION IN('CLERK','MANAGER','SUPERVISOR'))
-OR(
-DEPARTMENT='ACCOUNTS' AND DESIGNATION IN('ACCOUNTANT','MANAGER','SUPERVISOR'))
-OR(
-DEPARTMENT='IT' AND DESIGNATION IN('ANALYST','MANAGER','SUPERVISOR'))
-));
+Console.Write("Enter the strings:" + (i + 1) + ":"); str[i] = Console.ReadLine();
 
-SELECT*FROM EMPLOYEE;
+int count = 0;
 
-     EMPNO NAME            DESIGNATION     DEPARTMENT      G     SALARY
----------- --------------- --------------- --------------- - ----------
-       101 ENSON           MANAGER         IT              M      60000
-       102 ALISTER         SUPERVISOR      ACCOUNTS        F      50000
-       103 VISHRUTH        ANALYST         IT              F      25000
-       104 ROY             CLERK           SELLS           F      70000
-       105 VARUN           ACCOUNTANT      ACCOUNTS        M      80000
-       106 ROMITH          SUPERVISOR      IT              M      90000
-       107 SUMAN RAJ       CLERK           SELLS           M      75000
-       108 YASIN           ANALYST         IT              M      65000
-       109 VERON           ACCOUNTANT      ACCOUNTS        M      78000
-       110 AKSHAY RAJ      MANAGER         SELLS           F      35000
+foreach (char ch in str[i])
 
+char c = char.ToUpper(ch);
+
+if (c == 'A' || c == 'E' || c == 'l' || c == 'O' || c == 'U')
+
+count++;
+
+}
+
+vcount[i] = count;
+
+if (count > max)
+
+max = count;
+
+Console.WriteLine("\nString with highest vowels are:") for (int j = 0; j < num; j++)
+
+{
+
+if (vcount[j] == max)
+
+Console.WriteLine(str[j]);
+
+}
+
+Console.Write("Number of vowels:" + max); Console.ReadKey();
+
+}
