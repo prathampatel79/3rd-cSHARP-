@@ -15,11 +15,6 @@ namespace B2
             InitializeComponent();
         }
 
-        private void textBox6_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnCalculate_Click(object sender, EventArgs e)
         {
             try
